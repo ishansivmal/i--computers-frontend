@@ -3,30 +3,33 @@ import { useState } from 'react'
 import './App.css'
 import ProductCard from './components/product-card'
 import Header from './components/header'
+import Test from './components/test'
+import { BrowserRouter } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
+import { HomePage } from './Pages/homePage'
+import { LoginPage } from './Pages/loginPage'
+import { RegisterPage } from './Pages/registerPage'
+import { AdminPage } from './Pages/adminPage'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (<>
- <div className="w-[600px] h-[600px] bg-gray-600 relative border-2 relative ">
-      <div className="bg-amber-300 w-[500px] h-[500px] flex flex-col justify-center items-center  ">
-            <div className='w-[100px] h-[100px] bg-blue-500 fixed left-[550px] top-[300px]'>
+  return (
+    <BrowserRouter>
+     <div className='w-full h-screen bg-primary text-secondary'>
 
-            </div>
-            <div className='w-[100px] h-[100px] bg-red-500 absolute bottom-[100px] right-[100px]'>
+        <Routes path="/">
+             <Route path="/" element={<HomePage />}></Route>
+             <Route path="/login" element={<LoginPage />}></Route>
+             <Route path="/register" element={<RegisterPage />}></Route>
+             <Route path="/admin" element={<AdminPage />}></Route>
 
-            </div>
-            <div className='w-[100px] h-[100px] bg-pink-500'>
+        </Routes>
+        
+     </div> 
 
-
-            </div>
-            <div className='w-[100px] h-[100px] bg-green-500'>
-
-            </div>
-      </div>
- </div>
-  </>)
- 
+   </BrowserRouter>
+  );
 }
 
 export default App
