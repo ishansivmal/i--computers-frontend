@@ -3,5 +3,34 @@
 {
     --color-primary: #F7FAFF;
     --color-secondary: #111827;
-    --color-accent: #2563E0;
+    --color-accent: #27302b;
 }
+
+
+/* ===== Custom Formal Scrollbar ===== */
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;     /* light neutral gray */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #27302b; /* gray-400 */
+  border-radius: 12px;
+  border: 12px solid #f1f3f5; /* space effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #6b7280; /* gray-500 */
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #9ca3af #f1f3f5;
+}
+/* End Custom Scrollbar */

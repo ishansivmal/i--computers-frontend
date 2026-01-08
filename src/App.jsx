@@ -10,6 +10,7 @@ import { HomePage } from './Pages/homePage'
 import { LoginPage } from './Pages/loginPage'
 import { RegisterPage } from './Pages/registerPage'
 import { AdminPage } from './Pages/adminPage'
+import { TestPage } from './Pages/testPage'
 
 
 function App() {
@@ -19,10 +20,11 @@ function App() {
      <div className='w-full h-screen bg-primary text-secondary'>
 
         <Routes path="/">
-             <Route path="/" element={<HomePage />}></Route>
-             <Route path="/login" element={<LoginPage />}></Route>
-             <Route path="/register" element={<RegisterPage />}></Route>
-             <Route path="/admin" element={<AdminPage />}></Route>
+             <Route path="/*" element={<HomePage />} />
+             <Route path="/login" element={<LoginPage />} />
+             <Route path="/register" element={<RegisterPage />} />
+             <Route path="/admin/*" element={<AdminPage />} />
+             <Route path="/test" element={<TestPage />} />
 
         </Routes>
         
