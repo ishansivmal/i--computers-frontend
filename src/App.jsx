@@ -11,15 +11,17 @@ import { LoginPage } from './Pages/loginPage'
 import { RegisterPage } from './Pages/registerPage'
 import { AdminPage } from './Pages/adminPage'
 import { TestPage } from './Pages/testPage'
+import { Toaster } from 'react-hot-toast'
 
 
 function App() {
 
   return (
     <BrowserRouter>
+    <Toaster  position='top-right'/>
      <div className='w-full h-screen bg-primary text-secondary'>
 
-        <Routes path="/">
+        <Routes>
              <Route path="/*" element={<HomePage />} />
              <Route path="/login" element={<LoginPage />} />
              <Route path="/register" element={<RegisterPage />} />
