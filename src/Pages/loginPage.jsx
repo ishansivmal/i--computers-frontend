@@ -12,8 +12,7 @@ export function LoginPage() {
 
   async function login()
   {
-    console.log("email", email);
-    console.log("password", password);
+    
     
     try {
       const response = await axios.post(import.meta.env.VITE_backEnd_URL + "/users/login", {
@@ -21,6 +20,10 @@ export function LoginPage() {
         password: password
       });
       console.log("Login successful Welcome back:", response.data);
+      //store token in browser table
+      localStorage.setItem("Token", response.data.token);
+      // we get token as we need by using token variable
+      const token = localStorage.getItem("Token");
 
       // by role we route the user
       if(response.data.role === "admin") {

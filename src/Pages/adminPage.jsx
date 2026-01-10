@@ -4,7 +4,8 @@ import { LuClipboardList } from "react-icons/lu";
 import { BsBoxes } from "react-icons/bs";
 import { LuUsers } from "react-icons/lu";
 import { MdOutlineRateReview } from "react-icons/md";
-
+import { AdminProductPage } from "../Pages/Admin/adminProduct";
+import { AdminAddProductPage } from "../Pages/Admin/adminAddProduct";
 
 
 
@@ -33,7 +34,8 @@ export function AdminPage() {
       <div className="w-[calc(100%-300px)] h-full max-h-full overflow-y-scroll border-[10px] border-accent rounded-2xl bg-primary" >
              <Routes >
                 <Route path="/" element={<h1>Orders</h1>} />
-                <Route path="/products" element={<h1>Products</h1>} />
+                <Route path="/products" element={<AdminProductPage />} />
+                <Route path="/add-products" element={<AdminAddProductPage />} />
                 <Route path="/users" element={<h1>Users</h1>} />
                 <Route path="/reviews" element={<h1>Reviews</h1>} />
 
