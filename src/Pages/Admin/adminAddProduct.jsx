@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineProduct } from "react-icons/ai";
+
+import axios from "axios";
 import { Navigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 
@@ -27,7 +30,7 @@ export function AdminAddProductPage() {
         {
             const token = localStorage.getItem("Token");
             if (token==null) {
-                toast.error("You must be logged in to add a product.");
+                toast.succes("You must be logged in to add a product.");
                 navigate("/login");
                 return;
             }
@@ -41,11 +44,11 @@ export function AdminAddProductPage() {
                 const imageArray = image.split(",")
                 await axios.post(import.meta.env.VITE_backEnd_URL + "/products/", {
                     productID: ProductID,
-                    name: name,
+                    pName: name,
                     altName: alternativeName,
-                    description: Description,
+                    pDescription: Description,
                     price: price,
-                    labelledPrice: labelledPrice,
+                    lebalPrice: labelledPrice,
                     image: imageArray,
                     category: category,
                     brand: brand,
@@ -58,10 +61,11 @@ export function AdminAddProductPage() {
                     }
                 });
                 
-               alert("Product added successfully.");
+               toast.success("Product added successfully.");
                 navigate("/admin/products");
            } catch (error) {
-              alert("Failed to add product.");
+              toast.error("Failed to add product.");
+              
            }
 
 
