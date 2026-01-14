@@ -5,6 +5,7 @@ import { AiOutlineProduct } from "react-icons/ai";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { uploadFile } from "../../utils/mediaUpload";
 
 
 
@@ -18,7 +19,7 @@ export function AdminAddProductPage() {
     const [Description,setDescription] = useState("")
     const [price,setPrice] =useState(0)
     const [labelledPrice,setLabelledPrice] = useState(0)
-    const [image,setImage] = useState("")
+    const [file,setfile] = useState([])
     const [category,setCategory] = useState("")
     const [brand,setBrand] = useState("")
     const [model,setModel] = useState("")
@@ -34,14 +35,21 @@ export function AdminAddProductPage() {
                 navigate("/login");
                 return;
             }
-            if(ProductID=="" || name=="" || AltName=="" || Description=="" || price==0 || labelledPrice==0 || image=="" || category=="" || brand=="" || model=="" || stock==0) {
+            if(ProductID=="" || name=="" || AltName=="" || Description=="" || price==0 || labelledPrice==0 || category=="" || brand=="" || model=="" || stock==0) {
                 toast.error("Please fill in all fields.");
                 return;
             }
+            // for each file we create promise afuter all we add those to img
+            const imgstore = []
 
+            for (let i = 0; i < file.length; i++) {
+                const promise = uploadFile(file[i])
+                imgstore.push(promise)
+            }
+            const images = await Promise.all(imgstore)
            try
            {    const alternativeName = AltName.split(",")
-                const imageArray = image.split(",")
+                
                 await axios.post(import.meta.env.VITE_backEnd_URL + "/products/", {
                     productID: ProductID,
                     pName: name,
@@ -49,7 +57,7 @@ export function AdminAddProductPage() {
                     pDescription: Description,
                     price: price,
                     lebalPrice: labelledPrice,
-                    image: imageArray,
+                    images: images,
                     category: category,
                     brand: brand,
                     model: model,
@@ -115,7 +123,7 @@ export function AdminAddProductPage() {
 
             <div className="my-[10px] w-full">
                 <label> Images</label>
-                <input type="text" value={image} onChange={(e)=>setImage(e.target.value)} className="w-full  h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent  border-accent shadow-2xl border-[1px] px-[10px]"/>
+                <input type="file" multiple={true} onChange={(e)=>setfile(e.target.files)} className="w-full  h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent  border-accent shadow-2xl border-[1px] px-[10px]"/>
             </div>
 
             <div className="my-[10px] flex flex-col w-[30%]">

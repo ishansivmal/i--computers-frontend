@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { LoadingCircle } from "../../components/loadingCircle";
+import ProductDeleteButton from "../../components/productDeleteButton";
 
 export function AdminProductPage() {
   const [products, setProducts] = useState([]);
@@ -17,6 +18,8 @@ export function AdminProductPage() {
       .then((response) => {
         setProducts(response.data);
         setLoading(true); // set loaded to true after data is fetched
+
+        
       });
     }
   }, [loaded]);
@@ -58,7 +61,7 @@ export function AdminProductPage() {
                 <td className="p-3">
                   <img
                     src={item.images[0]}
-                    alt={item.pName}
+                    
                     className="w-10 h-10 object-cover rounded"
                   />
                 </td>
@@ -100,31 +103,7 @@ export function AdminProductPage() {
 
                 {/* Delete Button - RED */}
                 <td className="p-3 text-center">
-                  <button
-                    onClick={
-                      () => {
-                        const token = localStorage.getItem("Token");
-                        // storage eke thiyana key eka same denn oni case sensitive
-                        // dan check kra blanna
-                        console.log("TOKEN:", localStorage.getItem("Token"));
-
-                        axios.delete(import.meta.env.VITE_backEnd_URL + "/products/" + item.productID, {
-                          headers: {
-                            Authorization: `Bearer ${token}`
-                          }
-                        }).then(() => {
-                          toast.success("Product deleted successfully");
-                          setLoading(false); // reset loading to refetch products
-                        })
-                      }
-                    }
-                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
-                    title="Delete Product"
-                    
-                  >
-                    <BiTrash className="text-xl" />
-                  </button>
-                </td>
+      <ProductDeleteButton productID={item.productID} reload={() => setLoading(false)}/>                </td>
               </tr>
             ))}
           </tbody>
