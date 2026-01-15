@@ -130,9 +130,10 @@ export function AdminAddProductPage() {
             <div className="my-[10px] flex flex-col w-[30%]">
                 <label> Category</label>
                 <select name="category" id="category" value={category} onChange={(e)=>setCategory(e.target.value)} className="w-full  h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent  border-accent shadow-2xl border-[1px] px-[10px]">
-                    <option value="cpu">CPU</option>
-                    <option value="graphic card">Graphic Card</option>
-                    <option value="desktops">Desktops</option>
+                    <option value="">-- Select Category --</option>
+                    <option value="CPU">CPU</option>
+                    <option value="Graphic Card">Graphic Card</option>
+                    <option value="Desktops">Desktops</option>
                     <option value="Power Supply">Power Supply</option>
                     <option value="RAM">RAM</option>
                     <option value="Storage Device">Storage Device</option>
