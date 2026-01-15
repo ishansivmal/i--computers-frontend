@@ -6,26 +6,33 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { uploadFile } from "../../utils/mediaUpload";
+import { useLocation } from "react-router-dom";
 
 
 
 
 
 
-export function AdminAddProductPage() {
-    const [ProductID,setProductID] = useState("");
-    const [name,setName] = useState("");
-    const [AltName,setAltname] = useState("")
-    const [Description,setDescription] = useState("")
-    const [price,setPrice] =useState(0)
-    const [labelledPrice,setLabelledPrice] = useState(0)
+export function AdminUpdateProductPage() {
+    const location = useLocation();
+    
+    const [ProductID,setProductID] = useState(location.state.ProductID);
+    const [name,setName] = useState(location.state.name);
+    const [AltName,setAltname] = useState(location.state.AltName);
+    const [Description,setDescription] = useState(location.state.Description);
+    const [price,setPrice] =useState(location.state.price);
+    const [labelledPrice,setLabelledPrice] = useState(location.state.labelledPrice);
     const [file,setfile] = useState([])
-    const [category,setCategory] = useState("")
-    const [brand,setBrand] = useState("")
-    const [model,setModel] = useState("")
-    const [stock,setStock] = useState(0)
+    const [category,setCategory] = useState(location.state.category);
+    const [brand,setBrand] = useState(location.state.brand);
+    const [model,setModel] = useState(location.state.model);
+    const [stock,setStock] = useState(location.state.stock);
     const [isAvailable,setIsAvailable] = useState(false)
     const navigate = useNavigate()
+    console.log(location);
+    if(!location.state) {
+        window.location.href = "/admin/products";
+    }
 
         async function addProduct(e)
         {
@@ -53,7 +60,7 @@ export function AdminAddProductPage() {
                 await axios.post(import.meta.env.VITE_backEnd_URL + "/products/", {
                     productID: ProductID,
                     pName: name,
-                    pAltname: alternativeName,
+                    altName: AltName.split(","),
                     pDescription: Description,
                     price: price,
                     lebalPrice: labelledPrice,
@@ -70,7 +77,6 @@ export function AdminAddProductPage() {
                 });
                 
                toast.success("Product added successfully.");
-               console.log(AltName)
                 navigate("/admin/products");
            } catch (error) {
               toast.error("Failed to add product.");
@@ -86,13 +92,13 @@ export function AdminAddProductPage() {
       <div className=" w-[800px] bg-accent/75 p-[40px] rounded-2xl overflow-y-visible">
         <h1 className="text-xl text-white w-full font-bold mb-[20px] shadow-2xl flex items-center gap-[5px]">
             <AiOutlineProduct/>
-            Add New Product
+            Update Product
         </h1>
 
         <div className="w-full bg-white p-[20px] rounded-xl flex flex-row flex-wrap justify-between shadow-2xl">
         <div className="my-[10px] w-[40%]  flex flex-col"> 
                 <label> Product Id</label>
-                <input type="text" value={ProductID} onChange={(e)=>setProductID(e.target.value)} className="w- h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent  border-accent shadow-2xl border-[1px] px-[10px]"/>
+                <input disabled type="text" value={ProductID} onChange={(e)=>setProductID(e.target.value)} className="w- h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent  border-accent shadow-2xl border-[1px] px-[10px]"/>
                 <p className="w-full text-sm text-gray-500 text-right">provide a unique ID</p>
             </div>
 
@@ -163,21 +169,14 @@ export function AdminAddProductPage() {
                 <input type="number" value={stock} onChange={(e)=>setStock(e.target.value)} className="w-full  h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent  border-accent shadow-2xl border-[1px] px-[10px]"/>
             </div>
 
-                        <div className="my-[10px] w-[40%] flex flex-col justify-center items-center">
-                <label>Available</label>
-                <select
-                name="availability"
-                value={isAvailable.toString()}           // ← convert boolean → string
-                onChange={(e) => setIsAvailable(e.target.value)} // ← convert back to boolean
-                className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border-accent shadow-2xl border-[1px] px-[10px]"
-                >
-                
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-                
+            <div className="my-[10px] w-[40%] flex flex-col justify-center items-center ">
+                <label> Available</label>
+                <select name="available" id="available" value={isAvailable} onChange={(e)=>setIsAvailable(e.target.value)} className="w-full  h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent  border-accent shadow-2xl border-[1px] px-[10px]">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
                 </select>
             </div>
-            <button onClick={addProduct} className="w-[49%] h-[50px] bg-accent text-white font-bold rounded-2xl hover:bg-yellow-600 transition-colors border-accent mt-[20px]"> Add Product</button>
+            <button onClick={addProduct} className="w-[49%] h-[50px] bg-accent text-white font-bold rounded-2xl hover:bg-yellow-600 transition-colors border-accent mt-[20px]"> Update</button>
             <Link to="/admin/products" className="w-[49%] h-[50px] bg-gray-500 text-white font-bold rounded-2xl hover:bg-red-600 transition-all duration-300 flex justify-center items-center mt-[20px]">
                 Cancel
         </Link>

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { LoadingCircle } from "../../components/loadingCircle";
 import ProductDeleteButton from "../../components/productDeleteButton";
+import { FiEdit } from "react-icons/fi";
 
 export function AdminProductPage() {
   const [products, setProducts] = useState([]);
@@ -92,18 +93,41 @@ export function AdminProductPage() {
                 <td className="p-3 text-center">
                   <span
                     className={
-                      item.isAvalabale
+                      item.isAvailable
                         ? "inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full"
                         : "inline-block px-3 py-1 bg-red-100 text-red-800 rounded-full"
                     }
                   >
-                    {item.isAvalabale ? "In Stock" : "Out of Stock"}
+                    {item.isAvailable ? "In Stock" : "Out of Stock"}
+                    {console.log(item.isAvailable)}
                   </span>
                 </td>
 
                 {/* Delete Button - RED */}
                 <td className="p-3 text-center">
-      <ProductDeleteButton productID={item.productID} reload={() => setLoading(false)}/>                </td>
+                    <div className="flex items-center justify-center gap-2">
+                      <ProductDeleteButton productID={item.productID} reload={() => setLoading(false)}/>  
+                      <Link 
+  to={`/admin/update-products/`}
+  state={{
+    ProductID: item.productID,
+    name: item.pName,
+    AltName: item.pAltname,
+    Description: item.pDescription,
+    price: item.price,
+    labelledPrice: item.lebalPrice,
+    category: item.category,
+    brand: item.Brand,  // Notice: Capital B
+    model: item.Model,  // Notice: Capital M
+    stock: item.stock,
+    isAvailable: item.isAvailable  // Notice: typo in your data - "isAvailable"
+  }}
+  className="text-blue-500 hover:text-blue-700 transition-colors"
+>
+  <FiEdit size={20} />
+</Link>
+                    </div>
+                </td>
               </tr>
             ))}
           </tbody>

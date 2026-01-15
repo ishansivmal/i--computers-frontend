@@ -6,12 +6,13 @@ import { LuUsers } from "react-icons/lu";
 import { MdOutlineRateReview } from "react-icons/md";
 import { AdminProductPage } from "../Pages/Admin/adminProduct";
 import { AdminAddProductPage } from "../Pages/Admin/adminAddProduct";
+import { AdminUpdateProductPage } from "../Pages/Admin/adminUpdateProduct";
 
 
 
 
 
-export function AdminPage() {
+export  function AdminPage() {
   return (
     <div className="h-full w-full max-h-full flex bg-accent">
 
@@ -31,11 +32,12 @@ export function AdminPage() {
 
       </div>
 
-      <div className="w-[calc(100%-300px)] h-full max-h-full overflow-y-scroll border-[10px] border-accent rounded-2xl bg-primary" >
+      <div className="w-[calc(100%-200px)] h-full max-h-full overflow-y-scroll border-[10px] border-accent rounded-2xl bg-primary" >
              <Routes >
                 <Route path="/" element={<h1>Orders</h1>} />
                 <Route path="/products" element={<AdminProductPage />} />
                 <Route path="/add-products" element={<AdminAddProductPage />} />
+                <Route path="/update-products" element={<AdminUpdateProductPage />} />
                 <Route path="/users" element={<h1>Users</h1>} />
                 <Route path="/reviews" element={<h1>Reviews</h1>} />
 
