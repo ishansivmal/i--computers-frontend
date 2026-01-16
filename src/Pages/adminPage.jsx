@@ -32,7 +32,7 @@ export  function AdminPage() {
 
       </div>
 
-      <div className="w-[calc(100%-200px)] h-full max-h-full overflow-y-scroll border-[10px] border-accent rounded-2xl bg-primary" >
+      <div className="w-[calc(100%-190px)] h-full max-h-full overflow-y-scroll border-[10px] border-accent rounded-2xl bg-primary" >
              <Routes >
                 <Route path="/" element={<h1>Orders</h1>} />
                 <Route path="/products" element={<AdminProductPage />} />

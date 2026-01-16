@@ -18,7 +18,12 @@ export function AdminUpdateProductPage() {
     
     const [ProductID,setProductID] = useState(location.state.ProductID);
     const [name,setName] = useState(location.state.name);
-    const [AltName,setAltname] = useState(location.state.AltName);
+    // ✅ CORRECT - Convert array to string when loading
+const [AltName, setAltname] = useState(
+    Array.isArray(location.state.AltName) 
+        ? location.state.AltName.join(",")  // Convert array to string
+        : location.state.AltName
+);
     const [Description,setDescription] = useState(location.state.Description);
     const [price,setPrice] =useState(location.state.price);
     const [labelledPrice,setLabelledPrice] = useState(location.state.labelledPrice);
@@ -29,16 +34,16 @@ export function AdminUpdateProductPage() {
     const [stock,setStock] = useState(location.state.stock);
     const [isAvailable,setIsAvailable] = useState(false)
     const navigate = useNavigate()
-    console.log(location);
+    
     if(!location.state) {
         window.location.href = "/admin/products";
     }
 
-        async function addProduct(e)
+        async function updateproduct()
         {
             const token = localStorage.getItem("Token");
             if (token==null) {
-                toast.succes("You must be logged in to add a product.");
+                toast.success("You must be logged in to update a product.");
                 navigate("/login");
                 return;
             }
@@ -46,21 +51,26 @@ export function AdminUpdateProductPage() {
                 toast.error("Please fill in all fields.");
                 return;
             }
-            // for each file we create promise afuter all we add those to img
+            // for each file we create promise afuter all we update those to img
             const imgstore = []
 
             for (let i = 0; i < file.length; i++) {
                 const promise = uploadFile(file[i])
                 imgstore.push(promise)
             }
-            const images = await Promise.all(imgstore)
+            let images = await Promise.all(imgstore)
+
+            if(images.length===0)
+                {
+                    images = location.state.images
+                }
            try
            {    const alternativeName = AltName.split(",")
                 
-                await axios.post(import.meta.env.VITE_backEnd_URL + "/products/", {
-                    productID: ProductID,
+                await axios.put(import.meta.env.VITE_backEnd_URL + "/products/"+ProductID, {
+                    
                     pName: name,
-                    altName: AltName.split(","),
+                    altName: alternativeName,
                     pDescription: Description,
                     price: price,
                     lebalPrice: labelledPrice,
@@ -75,12 +85,13 @@ export function AdminUpdateProductPage() {
                         Authorization: "Bearer " +token
                     }
                 });
-                
-               toast.success("Product added successfully.");
+
+               toast.success("Product updated successfully.");
                 navigate("/admin/products");
            } catch (error) {
-              toast.error("Failed to add product.");
-              
+              toast.error("Failed to update product.");
+              console.log(error);
+
            }
 
 
@@ -176,7 +187,7 @@ export function AdminUpdateProductPage() {
                     <option value="false">No</option>
                 </select>
             </div>
-            <button onClick={addProduct} className="w-[49%] h-[50px] bg-accent text-white font-bold rounded-2xl hover:bg-yellow-600 transition-colors border-accent mt-[20px]"> Update</button>
+            <button onClick={updateproduct} className="w-[49%] h-[50px] bg-accent text-white font-bold rounded-2xl hover:bg-yellow-600 transition-colors border-accent mt-[20px]"> Update</button>
             <Link to="/admin/products" className="w-[49%] h-[50px] bg-gray-500 text-white font-bold rounded-2xl hover:bg-red-600 transition-all duration-300 flex justify-center items-center mt-[20px]">
                 Cancel
         </Link>
