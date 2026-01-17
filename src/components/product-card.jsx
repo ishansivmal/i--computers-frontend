@@ -55,21 +55,14 @@ export default function ProductCard(props){
                         )}
                     </div>
                     <div className="flex gap-1.5">
-                        <button 
-                            className="text-white px-3 py-1.5 rounded-lg transition-colors duration-200 whitespace-nowrap text-xs" 
-                            style={{backgroundColor: '#27302b', width: '60%'}} 
-                            onMouseEnter={(e) => e.target.style.backgroundColor = '#e29816'} 
-                            onMouseLeave={(e) => e.target.style.backgroundColor = '#27302b'}
-                        >
-                            Add to Cart
-                        </button>
+                        
                         <Link to={`/overview/${product.productID}`} 
                             className="text-white px-2 py-1.5 rounded-lg transition-colors duration-200 text-xs" 
                             style={{backgroundColor: '#27302b', width: '40%'}} 
                             onMouseEnter={(e) => e.target.style.backgroundColor = '#e29816'} 
                             onMouseLeave={(e) => e.target.style.backgroundColor = '#27302b'}
                         >
-                            view details
+                            View Details
                         </Link>
                     </div>
                 </div>

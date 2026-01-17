@@ -2,6 +2,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import ImageSlider from "../components/imageSlider";
+import { CgChevronDoubleRight } from "react-icons/cg";
 
 export default function ProductOverview() {
     // get product id from URL
@@ -25,18 +27,61 @@ export default function ProductOverview() {
 
     return (
         <>
-            {status === "loading" && <p>Loading...</p>}
-            {status === "error" && <p>Error loading product</p>}
+            {status === "loading" && <p className="text-center text-xl text-gray-500 mt-20">Loading...</p>}
+            {status === "error" && <p className="text-center text-xl text-red-500 mt-20">Error loading product</p>}
             {status === "success" && product && (
-                <div className="p-w-full h[calc(100vh-100px)] flex items-center justify-center">
-                    <div className="w-1/2 h-full flex items-center justify-center">
-                        <img src={product.images[0]} alt={product.pName} className="max-w-[80%] max -h-[80% ] object-contain" />
+                <div className="w-full h-[calc(100vh-100px)] flex items-center justify-center bg-gray-50 p-6">
+                    <div className="w-full max-w-7xl h-full flex bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div className="w-1/2 h-full flex items-center justify-center p-6">
+                           <ImageSlider images={product.images}/>
+                        </div>
+                        <div className="w-1/2 h-full p-10 flex flex-col gap-6 overflow-y-auto">
+                            <h1 className="text-4xl font-bold text-gray-900">{product.pName}</h1>
+                            <h1 className="text-sm font-medium text-gray-500">Product ID: <span className="text-gray-700">{product.productID}</span></h1>
+                            <h1 className="text-sm font-medium text-gray-500">Category: <span className="inline-block bg-accent text-white px-3 py-1 rounded-full text-xs">{product.category}</span></h1>
+                            <h1 className="text-2xl font-semibold text-gray-800 flex items-center gap-2"><CgChevronDoubleRight className="text-accent"/>{product.pName}</h1>
+                            <p className="text-gray-600 leading-relaxed">{product.pDescription}</p>
 
-                    </div>
-                    <div className="w-1/2 h-full p-10 flex flex-col gap-6">
+                            <div className="w-full bg-gray-50 rounded-xl p-6 mt-4">
+                                <h2 className="text-xl text-gray-400 line-through mb-2">
+                                    LKR {product.lebalPrice|| 0}
+                                </h2>
+                                <h1 className="text-4xl font-bold text-accent">
+                                    LKR {product.price || 0}
+                                </h1>
+                                {product.lebalPrice && product.price && product.lebalPrice > product.price && (
+                                    <p className="text-green-600 font-semibold mt-2">
+                                        Save LKR {(product.lebalPrice - product.price).toFixed(2)}
+                                        
+                                    </p>
+                                )}
+                            </div>
 
-                        <h1 className="text-4xl font-semibold">{product.pName}</h1>
-
+                            <div className="flex gap-4 mt-4">
+                                <button 
+    className="flex-1 bg-accent text-white px-6 py-3 rounded-lg font-semibold transition-all shadow-md"
+    onMouseEnter={(e) => e.target.style.backgroundColor = '#e29816'} 
+    onMouseLeave={(e) => e.target.style.backgroundColor = '#27302b'}
+>
+    Add to Cart
+    </button>
+    <button 
+        className="px-6 py-3 border-2 border-accent text-accent rounded-lg font-semibold transition-all"
+        onMouseEnter={(e) => {
+            e.target.style.backgroundColor = '#22c55e';
+            e.target.style.borderColor = '#22c55e';
+            e.target.style.color = 'white';
+        }} 
+        onMouseLeave={(e) => {
+            e.target.style.backgroundColor = 'transparent';
+            e.target.style.borderColor = '#27302b';
+            e.target.style.color = '#27302b';
+        }}
+    >
+        Buy Now
+    </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
