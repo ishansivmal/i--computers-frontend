@@ -3,6 +3,8 @@ import Header from "../components/header.jsx";
 import { Route } from "react-router-dom";
 import  ProductPage  from "./productPage.jsx";
 import  ProductOverview  from "./productOverview.jsx";
+import  Cartpage from "./cart.jsx";
+import Checkout from "./chekout.jsx";
 export function HomePage() {
   return (
     <div className="h-full w-full overflow-y-scroll">  
@@ -15,6 +17,9 @@ export function HomePage() {
                 <Route path="/reviews" element={<h1>Reviews</h1>} />
                 <Route path="/*" element={<h1>404 page not found</h1>} />
                 <Route path="/overview/:productID" element={<ProductOverview />} />
+                <Route path="/cart" element={<Cartpage />} />
+                <Route path="/checkout" element={<Checkout />} />
+
              </Routes>
         </div>
      

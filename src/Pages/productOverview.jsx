@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ImageSlider from "../components/imageSlider";
 import { CgChevronDoubleRight } from "react-icons/cg";
+import { getCartItems, emptyCart,addItemToCart} from "../utils/cart.js";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductOverview() {
     // get product id from URL
@@ -11,6 +13,7 @@ export default function ProductOverview() {
 
     const [product, setProduct] = useState(null);
     const [status, setStatus] = useState("loading");
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios
@@ -59,6 +62,12 @@ export default function ProductOverview() {
 
                             <div className="flex gap-4 mt-4">
                                 <button 
+    onClick={()=>{
+        addItemToCart(product, 1);
+        
+    }
+    }
+                                
     className="flex-1 bg-accent text-white px-6 py-3 rounded-lg font-semibold transition-all shadow-md"
     onMouseEnter={(e) => e.target.style.backgroundColor = '#e29816'} 
     onMouseLeave={(e) => e.target.style.backgroundColor = '#27302b'}
@@ -66,6 +75,19 @@ export default function ProductOverview() {
     Add to Cart
     </button>
     <button 
+        
+    onClick={() => {
+    navigate("/checkout", {
+        state: {  
+            productID: product.productID,
+            pName: product.pName,
+            price: product.price,
+            labalPrice: product.lebalPrice,
+            image: product.images[0],
+            quantity: 1
+        }  
+    });
+}}
         className="px-6 py-3 border-2 border-accent text-accent rounded-lg font-semibold transition-all"
         onMouseEnter={(e) => {
             e.target.style.backgroundColor = '#22c55e';
