@@ -3,16 +3,20 @@ import { BsChevronBarUp, BsChevronBarDown } from "react-icons/bs";
 
 import { getTotalCartItems } from "../utils/cart";
 import { useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 
 export default function CheckoutPage() {
     const location = useLocation();
     const navigate = useNavigate();
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+    const[phone, setPhone] = useState("");
+    
 
     const [cartItems, setCartItems] = useState(() => {
-        console.log("Initializing cartItems with location.state:", location.state);
-        console.log("Type of location.state:", typeof location.state);
-        console.log("Is Array?:", Array.isArray(location.state));
+       
         
         if (!location.state) {
             return [];
@@ -45,6 +49,53 @@ export default function CheckoutPage() {
         });
         return total;
     }
+async function submitorder() {
+    const token = localStorage.getItem("Token");
+
+    if(!token){
+      toast.error("Please login to place an order");
+      navigate("/login");
+      return;
+    }
+     console.log("Cart Items:", cartItems);
+
+    const orderItems = [];
+    cartItems.forEach((item) => {
+      orderItems.push({
+        productID: item.productID,
+        quantity: item.quantity,
+        
+      });
+    });
+
+       console.log("Order Items being sent:", orderItems)
+
+    axios.post(
+      import.meta.env.VITE_backEnd_URL + "/orders", 
+      {
+        name: name,
+        address: address,
+        phoneNumber: phone,
+        items: orderItems,
+        
+        
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      }
+    )  // ✅ .then() goes AFTER axios.post(), not after headers
+    .then((response) => {
+      toast.success("Order placed successfully!");
+      navigate("/products");
+    })
+    .catch((error) => {
+      toast.error(error.response?.data?.message || "Failed to place order");
+      console.error("Order submission error:", error);
+    });
+}
+    
 
     // Safety check - make sure cartItems is always an array
     console.log("Before render - cartItems:", cartItems, "Is array?", Array.isArray(cartItems));
@@ -65,7 +116,8 @@ export default function CheckoutPage() {
             </div>
         );
     }
-    
+
+   
     return (
       <div className="w-full min-h-screen bg-gradient-to-br from-primary to-gray-50 flex flex-col items-center px-4 py-8">
         
@@ -159,6 +211,42 @@ export default function CheckoutPage() {
             </div>
           ))}
         </div>
+        <div className=" rounded-2xl overflow-hidden shadow-2xl my-1 p-6 w-[600px]">
+  <div className="flex flex-wrap gap-4 ">
+    {/* Name and Phone on the same row */}
+    <div className="flex flex-col flex-1 min-w-[250px]">
+      <label className="mb-2 font-medium text-gray-700">Name</label>
+      <input 
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className="px-4 py-2 rounded border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
+      />
+    </div>
+    
+    <div className="flex flex-col flex-1 min-w-[250px]">
+      <label className="mb-2 font-medium text-gray-700">Phone</label>
+      <input 
+        type="text"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        className="px-4 py-2 rounded border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
+      />
+    </div>
+    
+    {/* Address on its own row below */}
+    <div className="flex flex-col w-full">
+      <label className="mb-2 font-medium text-gray-700">Address</label>
+      <textarea 
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
+        className="px-4 py-2 rounded border-2 border-gray-300 focus:border-blue-500 focus:outline-none resize-none"
+        rows="4"
+      />
+    </div>
+  </div>
+</div>
+
 
         {/* Checkout Section */}
         {cartItems.length > 0 && (
@@ -168,7 +256,9 @@ export default function CheckoutPage() {
                 <span className="text-sm uppercase tracking-wide opacity-90">Total Amount</span>
                 <span className="text-3xl font-bold">LKR {getCartTotal().toFixed(2)}</span>
               </div>
-              <button className="bg-gold text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-opacity-90 transition-all shadow-md hover:shadow-xl transform hover:scale-105">
+              <button 
+              onClick={submitorder}
+              className="bg-gold text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-opacity-90 transition-all shadow-md hover:shadow-xl transform hover:scale-105">
                 Order Now
               </button>
             </div>
