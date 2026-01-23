@@ -5,26 +5,10 @@
 
 export  function TestPage() {
 
-  
-  const [file, setFile] = useState(null);
-   async function handleUpload() {
-    
-      const url  = await uploadFile(file)
-      console.log(url);
-
-    
-  }
-  
   return (
-   
-    
-    <div className="w-full h-full flex justify-center items-center">
-      <input type="file" onChange={(e)=> {
-        setFile(e.target.files[0]);
+  <div className=" w-full h-full bg-yellow-500 lg:bg-green-500">
+    hello world
 
-      }} />
-      <button onClick={handleUpload} className="bg-red-500 text-white rounded-2xl">Upload</button>
-    </div>
-    
+  </div>
   );
 }
