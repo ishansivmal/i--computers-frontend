@@ -3,6 +3,7 @@ import { BiPlus, BiTrash } from "react-icons/bi"; // ← added BiTrash
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { LoadingCircle } from "../../components/loadingCircle";
+import ViewOrderInfo from "../../components/viewOrderInfo";
 
 
 export function AdminOrdersPage() {
@@ -43,7 +44,7 @@ export function AdminOrdersPage() {
                 <th className="p-3 text-left">status </th>
                 <th className="p-3 text-left">Total amount</th>
                 <th className="p-3 text-left">action</th>
-                <th className="p-3 text-left">Model</th>
+                
                 
               </tr>
             </thead>
@@ -73,6 +74,7 @@ export function AdminOrdersPage() {
                     LKR {order.total.toFixed(2)}
                   </td>
                   <td className="p-3">
+                    <ViewOrderInfo  order={order} />
                     </td>
                   
                    

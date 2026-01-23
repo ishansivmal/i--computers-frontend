@@ -85,6 +85,7 @@ export default function ProductOverview() {
             labalPrice: product.lebalPrice,
             image: product.images[0],
             quantity: 1
+            
         }  
     });
 }}

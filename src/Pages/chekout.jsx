@@ -77,6 +77,7 @@ async function submitorder() {
         address: address,
         phoneNumber: phone,
         items: orderItems,
+        Notes : null
         
         
       },
