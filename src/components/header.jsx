@@ -9,7 +9,7 @@ export default function Header() {
 
     {
       return (
-        <header className=" w-full h-[100px] bg-accent flex relative">
+        <header className="  w-full h-[100px] bg-accent flex relative">
           <LuListCollapse
           onClick={() => setSidebarOpen(true)}
 

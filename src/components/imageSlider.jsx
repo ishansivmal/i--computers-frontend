@@ -5,11 +5,11 @@ export default function ImageSlider(props) {
     const [activeindex, setActiveIndex] = useState(0);
     
     return (
-        <div className="w-full h-full flex flex-col items-center justify-between py-4">
+        <div className=" lg:w-full h-full flex flex-col items-center justify-between py-4">
             <img 
                 src={images[activeindex]} 
                 alt="" 
-                className="w-full h-[calc(100%-120px)] object-contain rounded-lg" 
+                className=" h-[150px] lg:w-full lg:h-[calc(100%-120px)] object-contain rounded-lg" 
             />
 
             <div className="w-full h-[100px] flex flex-row justify-center items-center gap-4">
@@ -19,7 +19,7 @@ export default function ImageSlider(props) {
                         src={image} 
                         alt={`Thumbnail ${index}`}
                         className={
-                            "w-[90px] h-[90px] object-cover rounded-lg cursor-pointer transition-all duration-200 hover:scale-105" +
+                            "w-[150px] lg:w-[90px] lg:h-[90px] object-cover rounded-lg cursor-pointer transition-all duration-200 hover:scale-105" +
                             ((activeindex === index) 
                                 ? " border-4 border-accent shadow-lg" 
                                 : " border-2 border-gray-200 opacity-70 hover:opacity-100")

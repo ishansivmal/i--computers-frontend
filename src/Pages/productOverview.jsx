@@ -33,17 +33,17 @@ export default function ProductOverview() {
             {status === "loading" && <p className="text-center text-xl text-gray-500 mt-20">Loading...</p>}
             {status === "error" && <p className="text-center text-xl text-red-500 mt-20">Error loading product</p>}
             {status === "success" && product && (
-                <div className="w-full h-[calc(100vh-100px)] flex items-center justify-center bg-gray-50 p-6">
-                    <div className="w-full max-w-7xl h-full flex bg-white rounded-2xl shadow-lg overflow-hidden">
-                        <div className="w-1/2 h-full flex items-center justify-center p-6">
+                <div className="w-full h-[calc(100vh-100px)] flex items-center justify-center bg-gray-50 p-6 ">
+                    <div className="w-full max-w-7xl h-full flex bg-white rounded-2xl shadow-lg lg:overflow-y-auto  flex-col  lg:flex-row">
+                        <div className=" w-full h-[250px] lg:w-1/2  lg:h-full flex items-center justify-center p-6">
                            <ImageSlider images={product.images}/>
                         </div>
-                        <div className="w-1/2 h-full p-10 flex flex-col gap-6 overflow-y-auto">
+                        <div className=" w-full lg:w-1/2 h-full p-10 flex flex-col gap-6  mt-[20px] lg:mt-0.50">
                             <h1 className="text-4xl font-bold text-gray-900">{product.pName}</h1>
                             <h1 className="text-sm font-medium text-gray-500">Product ID: <span className="text-gray-700">{product.productID}</span></h1>
                             <h1 className="text-sm font-medium text-gray-500">Category: <span className="inline-block bg-accent text-white px-3 py-1 rounded-full text-xs">{product.category}</span></h1>
                             <h1 className="text-2xl font-semibold text-gray-800 flex items-center gap-2"><CgChevronDoubleRight className="text-accent"/>{product.pName}</h1>
-                            <p className="text-gray-600 leading-relaxed">{product.pDescription}</p>
+                            <p className="text-gray-600 leading-relaxed  hidden lg:block mt-3.5">{product.pDescription}</p>
 
                             <div className="w-full bg-gray-50 rounded-xl p-6 mt-4">
                                 <h2 className="text-xl text-gray-400 line-through mb-2">
