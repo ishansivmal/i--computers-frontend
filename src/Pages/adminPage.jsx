@@ -8,14 +8,51 @@ import { AdminProductPage } from "../Pages/Admin/adminProduct";
 import { AdminAddProductPage } from "../Pages/Admin/adminAddProduct";
 import { AdminUpdateProductPage } from "../Pages/Admin/adminUpdateProduct";
 import { AdminOrdersPage } from "./Admin/adminOrdersPage";
+import { use } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { LoadingCircle } from "../components/loadingCircle";
+
+
 
 
 
 
 export  function AdminPage() {
+const [user, setUser] = useState(null);
+
+useEffect(() => {
+  const Token = localStorage.getItem("Token");
+
+  if(Token === null){
+    window.location.href = "/";
+    return;
+  }
+
+  axios.get(import.meta.env.VITE_backEnd_URL + "/users", {
+    headers: {
+      Authorization: `Bearer ${Token}`,
+    }
+  })
+  .then((response) => {
+    if (response.data.role == "admin") {
+      setUser(response.data);
+    }
+    else
+    {
+      window.location.href = "/login";
+    }
+  }).catch((error) => {
+    console.error("Error fetching user data:", error);
+    window.location.href = "/";
+  });
+
+}, []); // Added dependency array
+
   return (
     <div className="h-full w-full max-h-full flex bg-accent">
-
+      {user ? 
+      <>
       <div className="w-[300px] h-full bg-accent">
       
     
@@ -46,6 +83,9 @@ export  function AdminPage() {
 
              </Routes>
       </div>
+
+     </>:
+     <LoadingCircle/> }
 
     </div>
   );

@@ -2,6 +2,7 @@ import { BiShoppingBag } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { LuListCollapse } from "react-icons/lu";
 import { useState } from "react";
+import UseData from "../components/userData.jsx";
 
 
 export default function Header() {
@@ -24,6 +25,9 @@ export default function Header() {
               <Link to="/reviews">Reviews</Link>
                             
           </div>
+        <div className="absolute right-12  top-0 h-full flex items-center text-white gap-1.5 ">
+          <UseData/>
+        </div>
         <Link to="/cart" className="absolute right-10 top-1/2 transform -translate-y-1/2 text-primary text-2xl font-bold">
         <BiShoppingBag />
         </Link>
