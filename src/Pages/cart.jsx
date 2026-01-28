@@ -21,7 +21,7 @@ export default function Cartpage() {
         <div className="w-full max-w-5xl space-y-4 mb-8">
           {cartItems.map((item, index) => (
             <div 
-              className="flex w-full bg-white shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden border border-gray-200" 
+              className=" flex w-full bg-white shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden border border-gray-200" 
               key={index}
             >
               {/* Product Image */}
@@ -35,7 +35,7 @@ export default function Cartpage() {
               
               {/* Product Details */}
               <div className="flex flex-col justify-center flex-grow px-6 py-4">
-                <h1 className="text-xl font-bold text-secondary mb-2 relative group cursor-pointer">
+                <h1 className=" lg:text-xl font-bold text-secondary mb-2 relative group cursor-pointer">
                   <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-xs absolute -top-8 left-0 bg-accent text-white px-3 py-1.5 rounded-lg shadow-lg whitespace-nowrap z-10">
                     {item.name}
                   </span>
@@ -86,7 +86,7 @@ export default function Cartpage() {
               </div>
 
               {/* Subtotal Section */}
-              <div className="flex items-center justify-center px-8 border-l border-gray-200 bg-gray-50">
+              <div className="hidden lg:flex items-center justify-center px-8 border-l border-gray-200 bg-gray-50">
                 <div className="text-right">
                   <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Subtotal</p>
                   <p className="text-2xl font-bold text-secondary">
@@ -108,15 +108,15 @@ export default function Cartpage() {
 
         {/* Checkout Section */}
         {cartItems.length > 0 && (
-          <div className="w-full max-w-5xl mt-6">
-            <div className="flex items-center justify-between bg-accent text-white px-8 py-4 rounded-2xl shadow-lg">
+          <div className="  lg: w-full max-w-5xl mt-6">
+            <div className="w-full lg: flex items-center justify-between bg-accent text-white px-8 py-4 rounded-2xl shadow-lg">
               <div className="flex flex-col">
                 <span className="text-sm uppercase tracking-wide opacity-90">Total Amount</span>
                 <span className="text-3xl font-bold">LKR {getTotalCartItems().toFixed(2)}</span>
               </div>
               <Link 
                 to="/checkout" 
-                className="bg-gold text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-opacity-90 transition-all shadow-md hover:shadow-xl transform hover:scale-105"
+                className=" lg: bg-gold text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-opacity-90 transition-all shadow-md hover:shadow-xl transform hover:scale-105"
                 state={cartItems}
               >
                 Proceed to Checkout

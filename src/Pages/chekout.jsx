@@ -212,41 +212,43 @@ async function submitorder() {
             </div>
           ))}
         </div>
-        <div className=" rounded-2xl overflow-hidden shadow-2xl my-1 p-6 w-[600px]">
-  <div className="flex flex-wrap gap-4 ">
-    {/* Name and Phone on the same row */}
-    <div className="flex flex-col flex-1 min-w-[250px]">
-      <label className="mb-2 font-medium text-gray-700">Name</label>
-      <input 
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="px-4 py-2 rounded border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
-      />
-    </div>
-    
-    <div className="flex flex-col flex-1 min-w-[250px]">
-      <label className="mb-2 font-medium text-gray-700">Phone</label>
-      <input 
-        type="text"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        className="px-4 py-2 rounded border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
-      />
-    </div>
-    
-    {/* Address on its own row below */}
-    <div className="flex flex-col w-full">
-      <label className="mb-2 font-medium text-gray-700">Address</label>
-      <textarea 
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-        className="px-4 py-2 rounded border-2 border-gray-300 focus:border-blue-500 focus:outline-none resize-none"
-        rows="4"
-      />
-    </div>
-  </div>
-</div>
+
+        {/* Form Section - Now Responsive */}
+        <div className="rounded-2xl overflow-hidden shadow-2xl my-1 p-6 w-full max-w-[600px]">
+          <div className="flex flex-col md:flex-row flex-wrap gap-4">
+            {/* Name and Phone on the same row on desktop, stacked on mobile */}
+            <div className="flex flex-col flex-1 min-w-[250px] md:min-w-[250px] w-full md:w-auto">
+              <label className="mb-2 font-medium text-gray-700">Name</label>
+              <input 
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-4 py-2 rounded border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+            
+            <div className="flex flex-col flex-1 min-w-[250px] md:min-w-[250px] w-full md:w-auto">
+              <label className="mb-2 font-medium text-gray-700">Phone</label>
+              <input 
+                type="text"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="w-full px-4 py-2 rounded border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+            
+            {/* Address on its own row below */}
+            <div className="flex flex-col w-full">
+              <label className="mb-2 font-medium text-gray-700">Address</label>
+              <textarea 
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                className="w-full px-4 py-2 rounded border-2 border-gray-300 focus:border-blue-500 focus:outline-none resize-none"
+                rows="4"
+              />
+            </div>
+          </div>
+        </div>
 
 
         {/* Checkout Section */}
