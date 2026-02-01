@@ -33,7 +33,7 @@ export default function UseData()
     <>
         {
             user ? (
-                <div>
+                <div className="mr-[50px] mt-[10px]">
                     <div className="w-[150px] flex  flex-row justify-center items-center gap-2">
                         <img src={user.image}   className="w-[50px] h-[50px] rounded-full"
                        />
@@ -55,7 +55,7 @@ export default function UseData()
                              <option className="bg-accent" value={"my-orders"}>my-orders</option>
                         </select>
                     </div>
-                    <div>
+                    <div className="ml-[38px]">
                         <Link  to="/login" className="mx-2 ">Login</Link>
                         <Link to="/register" className="mx-2 ">register</Link>
                         
