@@ -25,7 +25,7 @@ export default function Header() {
               <Link to="/reviews">Reviews</Link>
                             
           </div>
-        <div className="absolute right-12  top-0 h-full flex items-center text-white gap-1.5 ">
+        <div className="absolute right-12  top-0 h-full flex items-center text-white lg:gap-1.5 mr-[30px]">
           <UseData/>
         </div>
         <Link to="/cart" className="absolute right-10 top-1/2 transform -translate-y-1/2 text-primary text-2xl font-bold">

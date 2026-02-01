@@ -2,11 +2,22 @@ import { use, useState } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function UseData()
 {
   const [user,setUser] =useState(null)
   const[selectedOption,setSelectedOption]= useState("user")
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+  const handleregisterClick = () => {
+    navigate("/register");
+  }
+
+
 
   useEffect(()=>
 
@@ -33,8 +44,8 @@ export default function UseData()
     <>
         {
             user ? (
-                <div className="mr-[50px] mt-[10px]">
-                    <div className="w-[150px] flex  flex-row justify-center items-center gap-2">
+                <div className=" lg:mr-[50px]  lg:mt-[10px]">
+                    <div className="lg:w-[150px] flex  flex-row justify-center items-center gap-2">
                         <img src={user.image}   className="w-[50px] h-[50px] rounded-full"
                        />
                         <select className="" value={selectedOption}  onChange={
@@ -55,13 +66,14 @@ export default function UseData()
                              <option className="bg-accent" value={"my-orders"}>my-orders</option>
                         </select>
                     </div>
-                    <div className="ml-[38px]">
-                        <Link  to="/login" className="mx-2 ">Login</Link>
-                        <Link to="/register" className="mx-2 ">register</Link>
-                        
-                    </div>
+                    
                 </div>
-            ) : null
+            ) : <div className=" w-[200px]  lg:mr-[50px]">
+                <button 
+                onClick={handleLoginClick} className="cursor-pointer m-[30px] bg-green-300 text-white rounded-2xl w-[70px] p-1">login</button>
+                <button onClick={handleregisterClick} className=" cursor-pointer bg-gray-500 text-white rounded-2xl w-[70px] p-1">register</button>
+
+            </div>
         }
     </>
 )
