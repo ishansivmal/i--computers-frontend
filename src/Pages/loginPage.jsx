@@ -2,6 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { GrGoogle } from "react-icons/gr";
+import {LoadingCircle} from "../components/loadingCircle.jsx";
 
 
 
@@ -9,6 +12,29 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const  googleLogin =useGoogleLogin({
+    onSuccess:(response) =>{
+        setIsLoading(true);
+        axios.post(import.meta.env.VITE_backEnd_URL + "/users/googlelogin",{
+          token: response.access_token
+        }).then((res)=>{
+          console.log("Google login successful Welcome back:", res.data);
+        })
+      toast.success("Google login successful!");
+      console.log("Google login successful Welcome back:", res.data);
+      setIsLoading(false);
+      // You can use the response to get user info or token
+      console.log("Google login successful Welcome back:", res.data);
+
+    },
+    onError: (error) => {
+      toast.error("Google login failed:", error);
+    },onNonOAuthError: (error) => {
+      console.error("Google login non-OAuth error:", error);
+    } 
+    
+  })
+
 
   const navigate = useNavigate();
 
@@ -87,6 +113,10 @@ export function LoginPage() {
                
                 <button 
                 className="mt-2.5 w-full h-[50px] bg-accent text-white font-bold text-[20px] rounded-lg hover:bg-yellow-600 transition-colors border-accent" onClick={login}>Login
+                </button>
+                <button 
+                onClick={() => googleLogin()}
+                className="mt-2.5 w-full h-[50px] bg-accent text-white font-bold text-[20px] rounded-lg hover:bg-yellow-600 transition-colors border-accent" > Login With <GrGoogle className="inline-block ml-2 text-2xl mb-1"/>
                 </button>
 
                 <p className="not-italic text-white mt-[20px]">Don't have an account? <Link to="/register" className="ml-[8px] text-gold italic">register here</Link> </p>
