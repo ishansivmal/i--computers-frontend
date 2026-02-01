@@ -8,10 +8,13 @@ import toast from "react-hot-toast";
 export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
   async function login()
   {
+    setIsLoading(true);
     
     
     try {
@@ -33,10 +36,11 @@ export function LoginPage() {
         navigate("/");
       }
       toast.success("Login successful! ");
-
+      setIsLoading(false);
     } catch (error) {
       toast.error("Login failed!");
       console.error("Login failed:", error);
+      setIsLoading(false);
     }
   }
 
@@ -85,10 +89,11 @@ export function LoginPage() {
                 className="mt-2.5 w-full h-[50px] bg-accent text-white font-bold text-[20px] rounded-lg hover:bg-yellow-600 transition-colors border-accent" onClick={login}>Login
                 </button>
 
-                <p className="not-italic text-white mt-[20px]">Don't have an account? <Link className="ml-[8px] text-gold italic">Login here</Link> </p>
+                <p className="not-italic text-white mt-[20px]">Don't have an account? <Link to="/register" className="ml-[8px] text-gold italic">register here</Link> </p>
 
             </div>
       </div>
+      {isLoading &&<LoadingCircle/>}
 
     </div>
   );
