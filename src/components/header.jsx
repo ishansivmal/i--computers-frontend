@@ -25,7 +25,7 @@ export default function Header() {
               <Link to="/reviews">Reviews</Link>
                             
           </div>
-        <div className="absolute right-12  top-0 h-full flex items-center text-white lg:gap-1.5 mr-[30px]">
+        <div className=" right-10  absolute lg:right-12 top-4 lg:top-0 h-full hidden lg:flex lg:items-center text-white lg:gap-1.5 lg:mr-[30px]  mr-[30px]">
           <UseData/>
         </div>
         <Link to="/cart" className="absolute right-10 top-1/2 transform -translate-y-1/2 text-primary text-2xl font-bold">
@@ -45,7 +45,9 @@ export default function Header() {
 
                   </div>
                   <div className="flex flex-col gap-[20px] mt-[30px] text-black ">
-                    
+                     <div className=" px-3.5 justify-center bg-accent text-white rounded-2xl">
+                      <UseData/>
+                     </div>
                     {/* home */} 
                     <a href="/" className="ml-[12px] text-primary text-xl text-center text-black text-left ">Home</a>
                     {/* products */}
