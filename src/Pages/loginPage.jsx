@@ -12,19 +12,30 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const  googleLogin =useGoogleLogin({
+    //sri lankan liecen story
     onSuccess:(response) =>{
         setIsLoading(true);
         axios.post(import.meta.env.VITE_backEnd_URL + "/users/googlelogin",{
           token: response.access_token
         }).then((res)=>{
-          console.log("Google login successful Welcome back:", res.data);
+          localStorage.setItem("Token", res.data.token);
+          if(res.data.role === "admin") {
+            navigate("/admin");
+            toast.success("Login successful! admin");
+          }
+          else {
+            navigate("/");
+            toast.success("Login successful!");
+          }
+          toast.log("login successful", res.data);
         })
-      toast.success("Google login successful!");
-      console.log("Google login successful Welcome back:", res.data);
-      setIsLoading(false);
-      // You can use the response to get user info or token
-      console.log("Google login successful Welcome back:", res.data);
+        setIsLoading(false);
+      
+     
+      
+      
 
     },
     onError: (error) => {
