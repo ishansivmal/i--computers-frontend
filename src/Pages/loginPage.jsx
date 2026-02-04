@@ -8,6 +8,7 @@ import {LoadingCircle} from "../components/loadingCircle.jsx";
 
 
 
+
 export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -118,7 +119,7 @@ export function LoginPage() {
 
                <p 
                className="mb-[20px] w-full text-center text-white mt-[20px] ">Forgot your password?
-                <Link className=" ml-[8px] text-gold">Reset it here
+                <Link to="/forget-password" className=" ml-[8px] text-gold">Reset it here
                 </Link> 
                 </p>
                

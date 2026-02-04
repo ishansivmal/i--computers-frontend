@@ -46,7 +46,7 @@ export default function UseData()
             user ? (
                 <div className=" lg:mr-[50px]  lg:mt-[10px]">
                     <div className="lg:w-[150px] flex  flex-row justify-center items-center gap-2">
-                        <img src={user.image}   className="w-[50px] h-[50px] rounded-full"
+                        <img src={user.image} referrerPolicy="no-referrer"  className="w-[50px] h-[50px] rounded-full"
                        />
                         <select className="" value={selectedOption}  onChange={
                             (e) =>{
@@ -68,7 +68,7 @@ export default function UseData()
                     </div>
                     
                 </div>
-            ) : <div className=" w-[200px]  lg:mr-[50px]">
+            ) : <div className="  w-[200px]  lg:mr-[50px]">
                 <button 
                 onClick={handleLoginClick} className="cursor-pointer m-[30px] bg-green-300 text-white rounded-2xl w-[70px] p-1">login</button>
                 <button onClick={handleregisterClick} className=" cursor-pointer bg-gray-500 text-white rounded-2xl w-[70px] p-1">register</button>
