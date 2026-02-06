@@ -44,6 +44,9 @@ export default function ProductOverview() {
                             <h1 className="text-sm font-medium text-gray-500">Category: <span className="inline-block bg-accent text-white px-3 py-1 rounded-full text-xs">{product.category}</span></h1>
                             <h1 className="text-2xl font-semibold text-gray-800 flex items-center gap-2"><CgChevronDoubleRight className="text-accent"/>{product.pName}</h1>
                             <p className="text-gray-600 leading-relaxed  hidden lg:block mt-3.5">{product.pDescription}</p>
+                            {/* alternative names */}
+                            {product.pAltname && product.pAltname.length > 0 && (
+                                <h1>   { product.pAltname.join("| ")} </h1>)}
 
                             <div className="w-full bg-gray-50 rounded-xl p-6 mt-4">
                                 <h2 className="text-xl text-gray-400 line-through mb-2">
