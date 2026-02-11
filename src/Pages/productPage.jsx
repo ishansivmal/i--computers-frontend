@@ -9,6 +9,7 @@ export default function ProductPage() {
 
     const [products, setProducts] = useState([]);
     const [loaded, setLoading] = useState(false );
+    const [quary, setQuary] = useState("");
 
     useEffect(() => 
         {
@@ -33,7 +34,44 @@ export default function ProductPage() {
             }
   },[]);
   return (
-    <div className="w-full min-h-[calc(100vh-100px)] bg- flex justify-center flex-wrap">
+    <div className="w-full min-h-[calc(100vh-100px)] bg- flex justify-center flex-wrap pt-[30px]">
+        <div className="bg-amber-300 h-[50px] w-full sticky top-0 bg-white flex justify-center items-center mb-4 shadow-md z-10">
+            <input
+                type="text"
+                placeholder="Search products..."
+                className=" w-1/2 h-3/4 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={quary}
+                onChange={
+                    async (e) =>{
+
+                        if(e.target.value=="")
+                        {
+                            setLoading(false);
+                           await axios
+                            .get(import.meta.env.VITE_backEnd_URL + "/products/search/")
+                            .then((response) => {
+                                setProducts(response.data);
+                                setLoading(true);
+                                console.log("Products loaded:", response.data);
+                            })
+                        }
+
+                        else
+                        {
+                            await axios
+                            .get(
+                                import.meta.env.VITE_backEnd_URL + "/products/search/" + e.target.value
+                            )
+                            .then((response) => {
+                                setProducts(response.data);
+                                setLoading(true);
+                                console.log("Products loaded:", response.data);
+                            })
+                            setLoading(true);
+                        }
+                    }}
+                ></input>
+        </div>
 
         {
             !loaded ? (<LoadingCircle/>):
