@@ -9,7 +9,6 @@ export default function ProductPage() {
 
     const [products, setProducts] = useState([]);
     const [loaded, setLoading] = useState(false );
-    const [quary, setQuary] = useState("");
 
     useEffect(() => 
         {
@@ -40,7 +39,7 @@ export default function ProductPage() {
                 type="text"
                 placeholder="Search products..."
                 className=" w-1/2 h-3/4 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={quary}
+                
                 onChange={
                     async (e) =>{
 
@@ -48,7 +47,7 @@ export default function ProductPage() {
                         {
                             setLoading(false);
                            await axios
-                            .get(import.meta.env.VITE_backEnd_URL + "/products/search/")
+                            .get(import.meta.env.VITE_backEnd_URL + "/products")
                             .then((response) => {
                                 setProducts(response.data);
                                 setLoading(true);
@@ -60,16 +59,22 @@ export default function ProductPage() {
                         {
                             await axios
                             .get(
-                                import.meta.env.VITE_backEnd_URL + "/products/search/" + e.target.value
+                                    import.meta.env.VITE_backEnd_URL + "/products/search/" + e.target.value
                             )
                             .then((response) => {
                                 setProducts(response.data);
                                 setLoading(true);
                                 console.log("Products loaded:", response.data);
-                            })
+                            }).catch((error) => {
+                                console.error("Error loading products:", error);
+                            });
                             setLoading(true);
+
+                            //error handling
+                            
                         }
                     }}
+                    
                 ></input>
         </div>
 
