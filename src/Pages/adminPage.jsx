@@ -12,6 +12,7 @@ import { use } from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { LoadingCircle } from "../components/loadingCircle";
+import { AdminUsersPage } from "./Admin/adminUserPage";
 
 
 
@@ -78,7 +79,7 @@ useEffect(() => {
                 <Route path="/products" element={<AdminProductPage />} />
                 <Route path="/add-products" element={<AdminAddProductPage />} />
                 <Route path="/update-products" element={<AdminUpdateProductPage />} />
-                <Route path="/users" element={<h1>Users</h1>} />
+                <Route path="/users" element={<AdminUsersPage />} />
                 <Route path="/reviews" element={<h1>Reviews</h1>} />
 
              </Routes>
