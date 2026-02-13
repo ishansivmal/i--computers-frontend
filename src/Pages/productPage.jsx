@@ -57,18 +57,22 @@ export default function ProductPage() {
 
                         else
                         {
-                            await axios
-                            .get(
-                                    import.meta.env.VITE_backEnd_URL + "/products/search/" + e.target.value
-                            )
-                            .then((response) => {
-                                setProducts(response.data);
-                                setLoading(true);
-                                console.log("Products loaded:", response.data);
-                            }).catch((error) => {
-                                console.error("Error loading products:", error);
-                            });
-                            setLoading(true);
+                             try {
+        setLoading(true); // Start loading before the request
+        
+        const response = await axios.get(
+            import.meta.env.VITE_backEnd_URL + "/products/search/" + e.target.value
+        );
+        
+        setProducts(response.data);
+        console.log("Products loaded:", response.data);
+        
+    } catch (error) {
+        console.error( error);
+        // Optional: You can add user-friendly error handling here
+        // setError("Failed to load products. Please try again.");
+        
+    }
 
                             //error handling
                             
@@ -83,6 +87,7 @@ export default function ProductPage() {
             (<div className="w-full grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4 p-4 text-black" key={products.productID} >
                {
                 products.length > 0 ? (
+                    console.log(products),
                     products.map((item) =>
                         {
                             return(
@@ -92,6 +97,7 @@ export default function ProductPage() {
                     )
                 ) : (
                     <p>No products found</p>
+                    
                 )
                }
                </div>
