@@ -641,7 +641,7 @@ export default function HomeLanding() {
           </ScrollReveal>
         </div>
         <div className="max-w-7xl mx-auto px-6 py-8 border-t border-gray-800 text-center text-sm">
-          © 2026 i-Computers. All rights reserved.
+          © 2026 i-Computers  All rights reserved.
         </div>
       </footer>
     </div>
