@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { LoadingCircle } from "../components/loadingCircle";
 import ProductCard from "../components/product-card.jsx";
+import Chartbot from "../components/chartbot.jsx";
 
   
 
@@ -103,7 +104,9 @@ export default function ProductPage() {
                </div>
             )
         }
-      
+      <div className="fixed bottom-6 right-6 z-50">
+  <Chartbot/>
+</div>
     </div>
   );
 }
